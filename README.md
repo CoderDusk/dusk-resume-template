@@ -1,6 +1,6 @@
 # dusk-resume-template
 
-一个基于 Vue 3 和 ElementPlus 的简历模板。
+一个基于 Vue 3 和 ElementPlus 的简历网页模板，方便展示项目链接、二维码和截图等信息。
 
 直接修改 /src/data.js 里的数据就可以修改简历资料。
 
