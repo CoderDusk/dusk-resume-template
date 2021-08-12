@@ -3,32 +3,32 @@
     <el-row :gutter="40">
       <el-col :xs="24" :md="8" :lg="6" class="left-col">
         <div class="bio-head">
-          <div class="name">{{ basicInfo.fullName }}</div>
-          <div class="job">{{ basicInfo.job }}</div>
+          <div class="name">{{ resume.basicInfo.fullName }}</div>
+          <div class="job">{{ resume.basicInfo.job }}</div>
         </div>
         <div class="bio-foot">
-          <div v-if="basicInfo.email">
-            <i class="el-icon-message"></i>{{ basicInfo.email }}
+          <div v-if="resume.basicInfo.email">
+            <i class="el-icon-message"></i>{{ resume.basicInfo.email }}
           </div>
-          <div v-if="basicInfo.mobile">
-            <i class="el-icon-mobile-phone"></i>{{ basicInfo.mobile }}
+          <div v-if="resume.basicInfo.mobile">
+            <i class="el-icon-mobile-phone"></i>{{ resume.basicInfo.mobile }}
           </div>
-          <div v-if="basicInfo.wechat">
-            <i class="iconfont icon-weixin"></i>{{ basicInfo.wechat }}
+          <div v-if="resume.basicInfo.wechat">
+            <i class="iconfont icon-weixin"></i>{{ resume.basicInfo.wechat }}
           </div>
-          <div v-if="basicInfo.birthDate">
-            <i class="el-icon-date"></i>{{ basicInfo.birthDate }}
+          <div v-if="resume.basicInfo.birthDate">
+            <i class="el-icon-date"></i>{{ resume.basicInfo.birthDate }}
           </div>
-          <div v-if="basicInfo.address">
-            <i class="el-icon-location-information"></i>{{ basicInfo.address }}
+          <div v-if="resume.basicInfo.address">
+            <i class="el-icon-location-information"></i>{{ resume.basicInfo.address }}
           </div>
-          <div v-if="basicInfo.salary">
-            <i class="el-icon-money"></i>{{ basicInfo.salary }}
+          <div v-if="resume.basicInfo.salary">
+            <i class="el-icon-money"></i>{{ resume.basicInfo.salary }}
           </div>
 
           <a
-            v-if="resumeDownloadLink"
-            :href="resumeDownloadLink"
+            v-if="resume.resumeDownloadLink"
+            :href="resume.resumeDownloadLink"
             class="download-link"
             download
             ><el-button
@@ -40,6 +40,7 @@
               >下载简历</el-button
             ></a
           >
+
         </div>
       </el-col>
       <el-col :xs="24" :md="16" :lg="16">
@@ -47,7 +48,7 @@
           <div class="work-experience main-content-pannel">
             <div class="title">工作经历</div>
             <div class="divide-line"></div>
-            <template v-for="(work, index) in workExperience" :key="index">
+            <template v-for="(work, index) in resume.workExperience" :key="index">
               <div class="work-experience-card">
                 <el-card>
                   <div class="company-name">{{ work.companyName }}</div>
@@ -70,7 +71,7 @@
             <div class="divide-line"></div>
             <el-timeline>
               <el-timeline-item
-                v-for="(school, index) in educationExperience"
+                v-for="(school, index) in resume.educationExperience"
                 :key="index"
               >
                 <div class="school-name">{{ school.schoolName }}</div>
@@ -88,7 +89,7 @@
 
             <div class="card-list">
               <template
-                v-for="(project, index) in projectExperience"
+                v-for="(project, index) in resume.projectExperience"
                 :key="index"
               >
                 <el-card class="card-item">
@@ -153,7 +154,7 @@
             <div class="divide-line"></div>
 
             <div class="card-list">
-              <template v-for="(value, name, index) in techStack" :key="index">
+              <template v-for="(value, name, index) in resume.techStack" :key="index">
                 <el-card class="card-item">
                   <template #header>
                     {{ name }}
@@ -174,7 +175,7 @@
           <div class="about-me main-content-pannel">
             <div class="title">自我评价</div>
             <div class="divide-line"></div>
-            <div>{{ selfIntroduction }}</div>
+            <div>{{ resume.selfIntroduction }}</div>
           </div>
         </div>
       </el-col>
@@ -183,26 +184,36 @@
 </template>
 
 <script>
-import { ref, reactive, onMounted } from "vue";
-import {
-  basicInfo,
-  selfIntroduction,
-  educationExperience,
-  workExperience,
-  techStack,
-  resumeDownloadLink,
-  projectExperience,
-  title,
-} from "./data";
-
+import { ref, reactive } from "vue";
+import data from "./data.json";
+import FileSaver from 'file-saver'
 
 export default {
   name: "App",
   setup() {
-    document.title = title
+    let resume = reactive(data)
+
+    document.title = resume.title;
 
     let isShowImageViewer = ref(false);
     let currentImgList = reactive([]);
+
+    function exportJSON(){
+      const data = JSON.stringify(resume)
+      const blob  = new Blob([data],{type:''})
+      FileSaver.saveAs(blob,'导出的JSON.json')
+    }
+
+    function importJSON(res,file){
+      if(res){
+        let reader = new FileReader()
+        reader.readAsText(res.raw)
+        reader.onload = (e)=>{
+          let result = JSON.parse(e.target.result)
+          console.log(result)
+        }
+      }
+    }
 
     function showImageViewer(imgList) {
       currentImgList = imgList;
@@ -210,16 +221,12 @@ export default {
     }
 
     return {
-      basicInfo,
-      selfIntroduction,
-      educationExperience,
-      workExperience,
-      techStack,
-      resumeDownloadLink,
-      projectExperience,
+      resume,
       isShowImageViewer,
       showImageViewer,
       currentImgList,
+      importJSON,
+      exportJSON,
     };
   },
 };
