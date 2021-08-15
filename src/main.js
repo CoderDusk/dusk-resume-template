@@ -8,6 +8,8 @@ import 'element-plus/lib/theme-chalk/index.css';
 import App from './App.vue';
 import router from './router'
 
+import "../src/common/tool"
+
 const app = createApp(App).use(router)
 
 app.use(ElementPlus)
