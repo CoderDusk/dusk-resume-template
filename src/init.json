@@ -25,19 +25,19 @@
         "companyName": "公司名称1",
         "job": "职位1",
         "duration": "2020.03-2021.02",
-        "content": ["项目1", "项目1内容"]
+        "content": "工作内容"
     }, {
         "companyName": "公司名称2",
         "job": "职位2",
         "duration": "工作时长",
-        "content": ["项目2", "项目2内容", "每一个字符串为一行，如果需要空行间隔请新增一个空字符串", "", "项目3", "项目3内容"]
+        "content": "工作内容"
     }],
-    "techStack": {
-        "Web": ["HTML(5)", "CSS(3)", "JS(ES6+)"],
-        "MVVM框架": ["Vue(了解Vue3)", "React(了解)"],
-        "UI框架": ["uni-app", "ElementUI", "uView UI"],
-        "后端": ["Serverless(uniCloud)", "NodeJS(了解)"]
-    },
+    "techStack": [
+        {
+            "name":"MVVM框架",
+            "value":["Vue","React"]
+        }
+    ],
     "resumeDownloadLink": "https://abc.com/xx.pdf",
     "projectExperience": [{
         "name": "项目名称",
@@ -46,5 +46,6 @@
         "pictureList": ["https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-tpxtzduzbujqb9a12e/5c2822c4-e330-4fad-98ae-da88bc717c87.png", "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-tpxtzduzbujqb9a12e/b803ec89-524a-4f68-91b1-b53beef77823.png"],
         "QRCode": "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-tpxtzduzbujqb9a12e/12cf6090-57c0-11eb-8a36-ebb87efcf8c0.png"
     }],
-    "title": "XXX - 前端开发 - 简历"
+    "title": "XXX - 前端开发 - 简历",
+    "siteURL":"http://hello.com/abc"
 }
