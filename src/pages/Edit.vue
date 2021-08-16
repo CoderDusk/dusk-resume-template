@@ -50,14 +50,26 @@
               <el-input v-model="item.duration"></el-input>
             </el-form-item>
             <el-form-item label="工作内容">
-              <el-input v-model="item.content" type="textarea" autosize></el-input>
+              <el-input
+                v-model="item.content"
+                type="textarea"
+                autosize
+              ></el-input>
             </el-form-item>
           </el-form>
         </el-card>
       </template>
-      <el-button @click="addItem('work')" type="primary" icon="el-icon-plus" circle></el-button>
+      <el-button
+        @click="addItem('work')"
+        type="primary"
+        icon="el-icon-plus"
+        circle
+      ></el-button>
       <h2>教育经历</h2>
-      <template v-for="(item, index) in resume.educationExperience" :key="index">
+      <template
+        v-for="(item, index) in resume.educationExperience"
+        :key="index"
+      >
         <el-card class="card-item">
           <el-form :model="item" label-width="80px">
             <el-form-item label="学校名称">
@@ -75,10 +87,15 @@
           </el-form>
         </el-card>
       </template>
-      <el-button @click="addItem('education')" type="primary" icon="el-icon-plus" circle></el-button>
+      <el-button
+        @click="addItem('education')"
+        type="primary"
+        icon="el-icon-plus"
+        circle
+      ></el-button>
       <h2>项目经历</h2>
       <template v-for="(item, index) in resume.projectExperience" :key="index">
-        <el-card  class="card-item">
+        <el-card class="card-item">
           <el-form :model="item" label-width="80px">
             <el-form-item label="项目名称">
               <el-input v-model="item.name"></el-input>
@@ -100,84 +117,126 @@
           </el-form>
         </el-card>
       </template>
-      <el-button @click="addItem('project')" type="primary" icon="el-icon-plus" circle></el-button>
+      <el-button
+        @click="addItem('project')"
+        type="primary"
+        icon="el-icon-plus"
+        circle
+      ></el-button>
       <h2>技术栈</h2>
-      <template v-for="(item, index) in resume.techStack" :key="index">
-        <el-card  class="card-item" >
-
-            <el-form-item label="分类名称">
-              <el-input :model-value="resume.techStack[index].name"></el-input>
-            </el-form-item>
-            <el-form-item label="项目">
-              <template v-for="(item, index) in item.value" :key="index">
-                <el-input :model-value="item" class="input-item"></el-input>
-              </template>
-            </el-form-item>
+      <template v-for="(item, index1) in resume.techStack" :key="index1">
+        <el-card class="card-item">
+          <el-form-item label="分类名称">
+            <el-input v-model="item.name"></el-input>
+          </el-form-item>
+          <el-form-item label="项目">
+            <!-- <template v-for="(tech, index2) in item.value" :key="index2">
+                <el-input v-model="resume.techStack[index1].value[index2]" class="input-item"></el-input>
+              </template> -->
+            <el-input
+              v-model="item.list"
+              autocorrect="off"
+              spellcheck="false"
+              class="input-item"
+            ></el-input>
+          </el-form-item>
         </el-card>
       </template>
+      <el-button
+        @click="addItem('tech')"
+        type="primary"
+        icon="el-icon-plus"
+        circle
+      ></el-button>
       <h2>自我介绍</h2>
-      <el-input v-model="resume.selfIntroduction" type="textarea" autosize></el-input>
-      <h2>保存导出</h2>
-      <el-button @click="saveResume" type="primary">保存</el-button>
+      <el-input
+        v-model="resume.selfIntroduction"
+        type="textarea"
+        autosize
+      ></el-input>
+      <h2>导入导出</h2>
+      <div class="button-list">
+        <el-button @click="saveResume" type="primary">保存</el-button>
+        <el-button @click="exportResume" type="primary">导出</el-button>
+        <el-upload
+          :show-file-list="false"
+          :auto-upload="false"
+          action="null"
+          :http-request="voidFunction"
+          :on-change="importResume"
+        >
+          <el-button @click="importResume" type="primary">导入</el-button>
+        </el-upload>
+      </div>
     </el-form>
   </el-card>
 </template>
 
 <script>
 import { reactive } from "vue";
+import FileSaver from "file-saver";
 export default {
   name: "Edit",
   setup() {
     let data = JSON.parse(localStorage.getItem("resume"));
-    
+
     let resume = reactive(data);
     document.title = resume.title;
 
-    function saveResume(){
-      localStorage.setItem('resume',JSON.stringify(resume))
+    function voidFunction() {}
+
+    function saveResume() {
+      localStorage.setItem("resume", JSON.stringify(resume));
     }
 
-    function exportResume(){
-
+    function exportResume() {
+      const data = JSON.stringify(resume);
+      const blob = new Blob([data], { type: "" });
+      FileSaver.saveAs(blob, "data.json");
     }
 
-    function importResume(){
-
-    }
-
-    function addItem(type){
-      console.log(123)
-      if(type === 'work'){
-        console.log(resume.workExperience.length)
-        resume.workExperience.push({
-          companyNmae:'',
-          job:'',
-          duration:'',
-          content:''
-        })
-        console.log(resume.workExperience.length)
-      } else if (type === 'project'){
-        resume.projectExperience.push({
-          name:'',
-          content:'',
-          link:'',
-          pictureList:[],
-          QRCode:''
-        })
-      } else if (type === 'education'){
-        resume.educationExperience.push({
-          schoolName:'',
-          degree:'',
-          major:'',
-          duration:''
-        })
-      } else if( type === 'tech' ){
-        resume.techStack.push({
-
-        })
+    function importResume(res) {
+      if (res) {
+        console.log(res);
+        let reader = new FileReader();
+        reader.readAsText(res.raw);
+        reader.onload = (e) => {
+          let result = JSON.parse(e.target.result);
+          console.log(result);
+        };
       }
     }
 
+    function addItem(type) {
+      console.log(123);
+      if (type === "work") {
+        console.log(resume.workExperience.length);
+        resume.workExperience.push({
+          companyNmae: "",
+          job: "",
+          duration: "",
+          content: "",
+        });
+        console.log(resume.workExperience.length);
+      } else if (type === "project") {
+        resume.projectExperience.push({
+          name: "",
+          content: "",
+          link: "",
+          pictureList: [],
+          QRCode: "",
+        });
+      } else if (type === "education") {
+        resume.educationExperience.push({
+          schoolName: "",
+          degree: "",
+          major: "",
+          duration: "",
+        });
+      } else if (type === "tech") {
+        resume.techStack.push({});
+      }
+    }
 
     return {
       resume,
@@ -185,6 +244,7 @@ export default {
       exportResume,
       importResume,
       addItem,
+      voidFunction,
     };
   },
 };
@@ -196,11 +256,15 @@ export default {
   margin: 40px auto;
 }
 
-.card-item{
+.card-item {
   margin-bottom: 20px;
 }
 
-.input-item{
+.input-item {
   margin-bottom: 10px;
+}
+
+.button-list{
+  display: flex;
 }
 </style>

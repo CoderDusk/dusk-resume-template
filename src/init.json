@@ -35,7 +35,7 @@
     "techStack": [
         {
             "name":"MVVM框架",
-            "value":["Vue","React"]
+            "list":"Vue,React"
         }
     ],
     "resumeDownloadLink": "https://abc.com/xx.pdf",
