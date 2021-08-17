@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card">
     <el-form ref="form" :model="resume" label-width="120px">
-      <h2>网站信息</h2>
+      <h3>网站信息</h3>
       <el-form-item label="网站标题">
         <el-input v-model="resume.title"></el-input>
       </el-form-item>
@@ -11,7 +11,7 @@
       <el-form-item label="简历下载地址">
         <el-input v-model="resume.resumeDownloadLink"></el-input>
       </el-form-item>
-      <h2>基本信息</h2>
+      <h3>基本信息</h3>
       <el-form-item label="姓名">
         <el-input v-model="resume.basicInfo.fullName"></el-input>
       </el-form-item>
@@ -36,7 +36,13 @@
       <el-form-item label="期望城市">
         <el-input v-model="resume.basicInfo.address"></el-input>
       </el-form-item>
-      <h2>工作经历</h2>
+      <div class="title-with-add-button">
+        <h3>工作经历</h3>
+        <el-button @click="addItem('work')" size="mini" type="primary"
+          >添加</el-button
+        >
+      </div>
+
       <template v-for="(item, index) in resume.workExperience" :key="index">
         <el-card class="card-item">
           <el-form :model="item" label-width="80px">
@@ -57,15 +63,23 @@
               ></el-input>
             </el-form-item>
           </el-form>
+          <div class="delete-button">
+            <el-button
+              type="danger"
+              icon="el-icon-delete"
+              @click="resume.workExperience.splice(index, 1)"
+              circle
+            ></el-button>
+          </div>
         </el-card>
       </template>
-      <el-button
-        @click="addItem('work')"
-        type="primary"
-        icon="el-icon-plus"
-        circle
-      ></el-button>
-      <h2>教育经历</h2>
+
+      <div class="title-with-add-button">
+        <h3>教育经历</h3>
+        <el-button @click="addItem('education')" size="mini" type="primary"
+          >添加</el-button
+        >
+      </div>
       <template
         v-for="(item, index) in resume.educationExperience"
         :key="index"
@@ -85,15 +99,22 @@
               <el-input v-model="item.duration"></el-input>
             </el-form-item>
           </el-form>
+          <div class="delete-button">
+            <el-button
+              type="danger"
+              icon="el-icon-delete"
+              @click="resume.educationExperience.splice(index, 1)"
+              circle
+            ></el-button>
+          </div>
         </el-card>
       </template>
-      <el-button
-        @click="addItem('education')"
-        type="primary"
-        icon="el-icon-plus"
-        circle
-      ></el-button>
-      <h2>项目经历</h2>
+      <div class="title-with-add-button">
+        <h3>项目经验</h3>
+        <el-button @click="addItem('project')" size="mini" type="primary"
+          >添加</el-button
+        >
+      </div>
       <template v-for="(item, index) in resume.projectExperience" :key="index">
         <el-card class="card-item">
           <el-form :model="item" label-width="80px">
@@ -110,62 +131,107 @@
               <el-input v-model="item.QRCode"></el-input>
             </el-form-item>
             <el-form-item label="图片列表">
-              <template v-for="(pic, index) in item.pictureList" :key="index">
-                <el-input :model-value="pic" class="input-item"></el-input>
+              <template
+                v-for="(pic, picIndex) in item.pictureList"
+                :key="picIndex"
+              >
+                <el-input
+                  v-model="
+                    resume.projectExperience[index].pictureList[picIndex]
+                  "
+                  class="input-item"
+                >
+                  <template #append>
+                    <el-button
+                      icon="el-icon-delete"
+                      @click="deletePictureItem(index, picIndex)"
+                    ></el-button>
+                  </template>
+                </el-input>
               </template>
+              <div class="add-item-button">
+                <!-- <el-button
+                  type="primary"
+                  @click="resume.projectExperience[index].pictureList.push('')"
+                  icon="el-icon-plus"
+                  circle
+                ></el-button> -->
+
+                <el-button
+                  type="primary"
+                  @click="resume.projectExperience[index].pictureList.push('')"
+                  >添加一张图片</el-button
+                >
+
+                <el-button
+                  type="danger"
+                  @click="resume.projectExperience.splice(index, 1)"
+                  >删除这个项目</el-button
+                >
+              </div>
+
+              <!-- <div class="delete-button">
+                <el-button
+                  type="danger"
+                  icon="el-icon-delete"
+                  @click="resume.projectExperience.splice(index, 1)"
+                  circle
+                ></el-button>
+              </div> -->
             </el-form-item>
           </el-form>
         </el-card>
       </template>
-      <el-button
-        @click="addItem('project')"
-        type="primary"
-        icon="el-icon-plus"
-        circle
-      ></el-button>
-      <h2>技术栈</h2>
+      <div class="title-with-add-button">
+        <h3>技术栈</h3>
+        <el-button @click="addItem('tech')" size="mini" type="primary"
+          >添加</el-button
+        >
+      </div>
       <template v-for="(item, index1) in resume.techStack" :key="index1">
         <el-card class="card-item">
-          <el-form-item label="分类名称">
-            <el-input v-model="item.name"></el-input>
-          </el-form-item>
-          <el-form-item label="项目">
-            <!-- <template v-for="(tech, index2) in item.value" :key="index2">
-                <el-input v-model="resume.techStack[index1].value[index2]" class="input-item"></el-input>
-              </template> -->
-            <el-input
-              v-model="item.list"
-              autocorrect="off"
-              spellcheck="false"
-              class="input-item"
-            ></el-input>
-          </el-form-item>
+          <el-form :model="item" label-width="80px">
+            <el-form-item label="分类名称">
+              <el-input v-model="item.name"></el-input>
+            </el-form-item>
+            <el-form-item label="技术">
+              <el-input
+                v-model="item.list"
+                autocorrect="off"
+                spellcheck="false"
+                class="input-item"
+              ></el-input>
+            </el-form-item>
+          </el-form>
+          <div class="delete-button">
+            <el-button
+              type="danger"
+              icon="el-icon-delete"
+              @click="resume.techStack.splice(index, 1)"
+              circle
+            ></el-button>
+          </div>
         </el-card>
       </template>
-      <el-button
-        @click="addItem('tech')"
-        type="primary"
-        icon="el-icon-plus"
-        circle
-      ></el-button>
-      <h2>自我介绍</h2>
+      <h3>自我介绍</h3>
       <el-input
         v-model="resume.selfIntroduction"
         type="textarea"
         autosize
       ></el-input>
-      <h2>导入导出</h2>
+      <h3>导入导出</h3>
       <div class="button-list">
-        <el-button @click="saveResume" type="primary">保存</el-button>
-        <el-button @click="exportResume" type="primary">导出</el-button>
+        <el-button @click="saveResume" type="primary">保存到本地存储</el-button>
+        <el-button @click="exportResume" type="primary">导出简历</el-button>
         <el-upload
           :show-file-list="false"
           :auto-upload="false"
-          action="null"
+          action="https://www.baidu.com/"
           :http-request="voidFunction"
           :on-change="importResume"
+          accept=".json"
         >
-          <el-button @click="importResume" type="primary">导入</el-button>
+          <el-button @click="importResume" type="primary">导入简历</el-button>
         </el-upload>
       </div>
     </el-form>
@@ -174,6 +240,7 @@
 
 <script>
 import { reactive } from "vue";
+import { ElMessage } from "element-plus";
 import FileSaver from "file-saver";
 export default {
   name: "Edit",
@@ -187,64 +254,77 @@ export default {
 
     function saveResume() {
       localStorage.setItem("resume", JSON.stringify(resume));
+      ElMessage.success("保存成功");
     }
 
     function exportResume() {
       const data = JSON.stringify(resume);
       const blob = new Blob([data], { type: "" });
       FileSaver.saveAs(blob, "data.json");
+      ElMessage.success("导出成功，请把data.json放在src目录下");
     }
 
     function importResume(res) {
-      if (res) {
-        console.log(res);
+      if (res.name !== undefined) {
         let reader = new FileReader();
         reader.readAsText(res.raw);
         reader.onload = (e) => {
-          let result = JSON.parse(e.target.result);
-          console.log(result);
+          const result = JSON.parse(e.target.result);
+          if (result.isResumeData === "yes") {
+            Object.keys(result).forEach((key) => {
+              resume[key] = result[key];
+            });
+            ElMessage.success("导入成功");
+          }
         };
       }
     }
 
     function addItem(type) {
-      console.log(123);
       if (type === "work") {
-        console.log(resume.workExperience.length);
-        resume.workExperience.push({
-          companyNmae: "",
-          job: "",
-          duration: "",
-          content: "",
-        });
-        console.log(resume.workExperience.length);
+        resume.workExperience.push({});
       } else if (type === "project") {
-        resume.projectExperience.push({
-          name: "",
-          content: "",
-          link: "",
-          pictureList: [],
-          QRCode: "",
-        });
+        resume.projectExperience.push({ pictureList: [""] });
       } else if (type === "education") {
-        resume.educationExperience.push({
-          schoolName: "",
-          degree: "",
-          major: "",
-          duration: "",
-        });
+        resume.educationExperience.push({});
       } else if (type === "tech") {
         resume.techStack.push({});
       }
     }
 
+    function deleteItem(type, index) {
+      console.log(type, index);
+
+      // if (type === "work") {
+      //   resume.workExperience.push({});
+      // } else if (type === "project") {
+      //   resume.projectExperience.push({ pictureList: [""] });
+      // } else if (type === "education") {
+      //   resume.educationExperience.push({});
+      // } else if (type === "tech") {
+      //   resume.techStack.push({});
+      // }
+    }
+
+    function deletePictureItem(projectIndex, pictureIndex) {
+      resume.projectExperience[projectIndex].pictureList.splice(
+        pictureIndex,
+        1
+      );
+      if (resume.projectExperience[projectIndex].pictureList.length === 0) {
+        resume.projectExperience[projectIndex].pictureList.push("");
+      }
+    }
+
     return {
       resume,
+      voidFunction,
       saveResume,
       exportResume,
       importResume,
       addItem,
-      voidFunction,
+      deleteItem,
+      deletePictureItem,
     };
   },
 };
@@ -258,13 +338,41 @@ export default {
 
 .card-item {
   margin-bottom: 20px;
+  .delete-button {
+    display: none;
+  }
+}
+
+.card-item:hover {
+  .delete-button {
+    display: block;
+    text-align: center;
+  }
 }
 
 .input-item {
   margin-bottom: 10px;
 }
 
-.button-list{
+.button-list {
   display: flex;
+  .el-button {
+    // padding-left: 0;
+    margin-left: 0;
+    margin-right: 20px;
+  }
+}
+
+.add-item-button {
+  text-align: center;
+}
+
+.title-with-add-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .el-button {
+    height: 24px;
+  }
 }
 </style>

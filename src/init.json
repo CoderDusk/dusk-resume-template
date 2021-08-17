@@ -47,5 +47,6 @@
         "QRCode": "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-tpxtzduzbujqb9a12e/12cf6090-57c0-11eb-8a36-ebb87efcf8c0.png"
     }],
     "title": "XXX - 前端开发 - 简历",
-    "siteURL":"http://hello.com/abc"
+    "siteURL":"http://hello.com/abc",
+    "isResumeData":"yes"
 }
