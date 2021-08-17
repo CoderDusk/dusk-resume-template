@@ -257,15 +257,7 @@ $fontColor: #44566c;
   background-color: rgba(0, 0, 0, 0);
   color: #0045ff;
 }
-// // 设置网页整体背景，设置了两张背景图片，背景图片是否重复、位置等属性可以设置两个值，分别对应两张图片
-// body {
-//   background-color: rgb(240, 240, 246);
-//   color: $fontColor;
-//   background-image: url("https://vkceyugu.cdn.bspapp.com/VKCEYUGU-6fec5402-1210-4b81-9949-97c1987784b9/7499570b-3f82-49d3-934f-f6c13b4f1cb3.svg"),
-//     url("https://vkceyugu.cdn.bspapp.com/VKCEYUGU-6fec5402-1210-4b81-9949-97c1987784b9/b7bf8c6f-e689-4cd1-9c77-ef3b37b89abc.svg");
-//   background-repeat: no-repeat, no-repeat;
-//   background-position: top left, bottom right;
-// }
+
 // 网页主体内容限定在85%宽度内显示，用以保留左右两边的宽度
 .container {
   max-width: 85%;

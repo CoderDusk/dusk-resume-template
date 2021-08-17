@@ -241,7 +241,6 @@
 
 <script>
 import { reactive } from "vue";
-// import { useRouter } from "vue-router";
 import router from "../router/index";
 import { ElMessage } from "element-plus";
 import FileSaver from "file-saver";
@@ -284,7 +283,6 @@ export default {
     }
 
     function previewResume(){
-      // const router = useRouter()
       router.push("/preview")
     }
 
@@ -298,20 +296,6 @@ export default {
       } else if (type === "tech") {
         resume.techStack.push({});
       }
-    }
-
-    function deleteItem(type, index) {
-      console.log(type, index);
-
-      // if (type === "work") {
-      //   resume.workExperience.push({});
-      // } else if (type === "project") {
-      //   resume.projectExperience.push({ pictureList: [""] });
-      // } else if (type === "education") {
-      //   resume.educationExperience.push({});
-      // } else if (type === "tech") {
-      //   resume.techStack.push({});
-      // }
     }
 
     function deletePictureItem(projectIndex, pictureIndex) {
@@ -366,7 +350,6 @@ export default {
 .button-list {
   display: flex;
   .el-button {
-    // padding-left: 0;
     margin-left: 0;
     margin-right: 20px;
   }
