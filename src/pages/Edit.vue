@@ -233,6 +233,7 @@
         >
           <el-button @click="importResume" type="primary">导入简历</el-button>
         </el-upload>
+        <el-button type="primary" @click="previewResume">预览</el-button>
       </div>
     </el-form>
   </el-card>
@@ -240,6 +241,8 @@
 
 <script>
 import { reactive } from "vue";
+// import { useRouter } from "vue-router";
+import router from "../router/index";
 import { ElMessage } from "element-plus";
 import FileSaver from "file-saver";
 export default {
@@ -278,6 +281,11 @@ export default {
           }
         };
       }
+    }
+
+    function previewResume(){
+      // const router = useRouter()
+      router.push("/preview")
     }
 
     function addItem(type) {
@@ -325,6 +333,7 @@ export default {
       addItem,
       deleteItem,
       deletePictureItem,
+      previewResume,
     };
   },
 };

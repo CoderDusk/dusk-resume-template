@@ -5,7 +5,6 @@ function initData(){
     if(resume == null){
         localStorage.setItem('resume',JSON.stringify(data))
     }
-    
 }
 
 initData()

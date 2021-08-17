@@ -191,16 +191,16 @@
 </template>
 
 <script>
-import { ref, reactive } from "vue";
-import data from "../data.json";
-import FileSaver from "file-saver";
-
+import {ref,reactive} from "vue"
 export default {
-  name: "Home",
+  name: "Preview",
   setup() {
-    let resume = reactive(data);
-
+    const resume = JSON.parse(localStorage.getItem('resume'))
     document.title = resume.title;
+
+    resume.workExperience.forEach(element => {
+        console.log(element)
+    });
 
     let isShowImageViewer = ref(false);
     let currentImgList = reactive([]);
@@ -387,6 +387,7 @@ $fontColor: #44566c;
 
     .description {
       color: $fontColor;
+      white-space: pre-wrap;
     }
   }
 }
