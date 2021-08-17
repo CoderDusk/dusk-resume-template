@@ -11,7 +11,7 @@
  - [ ] 线上直接修改配置文件生成新简历
  - [ ] 把服务部署到云服务上成为公开应用
 
-## 安装
+### 安装
 
 ```
 yarn install
@@ -21,8 +21,17 @@ yarn install
 ```
 yarn serve
 ```
+http://localhost:8080/#/edit 编辑简历
+http://localhost:8080/#/preview 预览简历
+
+编辑和预览基于浏览器本地存储的数据，编辑完成后请点击 导出简历，并将生成的 data.json(名字一定要一致) 放入 /src 文件夹替换原有文件
+
+http://localhost:8080/#/ 最终展示效果，数据来自 data.json
+
+
 
 ### 打包
 ```
 yarn build
 ```
+打包完成后把 /dist 文件夹下的静态文件放到 Web 服务器的相应文件夹下即可访问
