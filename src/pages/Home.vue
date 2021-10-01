@@ -7,24 +7,26 @@
           <div class="job">{{ resume.basicInfo.job }}</div>
         </div>
         <div class="bio-foot">
-          <div v-if="resume.basicInfo.email">
-            <i class="el-icon-message"></i>{{ resume.basicInfo.email }}
-          </div>
-          <div v-if="resume.basicInfo.mobile">
-            <i class="el-icon-mobile-phone"></i>{{ resume.basicInfo.mobile }}
-          </div>
-          <div v-if="resume.basicInfo.wechat">
-            <i class="iconfont icon-weixin"></i>{{ resume.basicInfo.wechat }}
-          </div>
-          <div v-if="resume.basicInfo.birthDate">
-            <i class="el-icon-date"></i>{{ resume.basicInfo.birthDate }}
-          </div>
-          <div v-if="resume.basicInfo.address">
-            <i class="el-icon-location-information"></i
-            >{{ resume.basicInfo.address }}
-          </div>
-          <div v-if="resume.basicInfo.salary">
-            <i class="el-icon-money"></i>{{ resume.basicInfo.salary }}
+          <div class="container">
+            <div v-if="resume.basicInfo.email">
+              <i class="el-icon-message"></i>{{ resume.basicInfo.email }}
+            </div>
+            <div v-if="resume.basicInfo.mobile">
+              <i class="el-icon-mobile-phone"></i>{{ resume.basicInfo.mobile }}
+            </div>
+            <div v-if="resume.basicInfo.wechat">
+              <i class="iconfont icon-weixin"></i>{{ resume.basicInfo.wechat }}
+            </div>
+            <div v-if="resume.basicInfo.birthDate">
+              <i class="el-icon-date"></i>{{ resume.basicInfo.birthDate }}
+            </div>
+            <div v-if="resume.basicInfo.address">
+              <i class="el-icon-location-information"></i
+              >{{ resume.basicInfo.address }}
+            </div>
+            <div v-if="resume.basicInfo.salary">
+              <i class="el-icon-money"></i>{{ resume.basicInfo.salary }}
+            </div>
           </div>
 
           <a
@@ -60,7 +62,7 @@
                     <span class="work-duration">{{ work.duration }}</span>
                   </div>
                   <div class="description">
-                    {{work.content}}
+                    {{ work.content }}
                   </div>
                 </el-card>
               </div>
@@ -154,10 +156,7 @@
             <div class="divide-line"></div>
 
             <div class="card-list">
-              <template
-                v-for="(item, index) in resume.techStack"
-                :key="index"
-              >
+              <template v-for="(item, index) in resume.techStack" :key="index">
                 <el-card class="card-item">
                   <template #header>
                     {{ item.name }}
