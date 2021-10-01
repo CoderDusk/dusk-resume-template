@@ -248,24 +248,19 @@ export default {
   name: "Edit",
   setup() {
     let data = JSON.parse(localStorage.getItem("resume"));
-
     let resume = reactive(data);
     document.title = resume.title;
-
     function voidFunction() {}
-
     function saveResume() {
       localStorage.setItem("resume", JSON.stringify(resume));
       ElMessage.success("保存成功");
     }
-
     function exportResume() {
       const data = JSON.stringify(resume);
       const blob = new Blob([data], { type: "" });
       FileSaver.saveAs(blob, "data.json");
       ElMessage.success("导出成功，请把data.json放在src目录下");
     }
-
     function importResume(res) {
       if (res.name !== undefined) {
         let reader = new FileReader();
@@ -281,11 +276,9 @@ export default {
         };
       }
     }
-
-    function previewResume(){
-      router.push("/preview")
+    function previewResume() {
+      router.push("/preview");
     }
-
     function addItem(type) {
       if (type === "work") {
         resume.workExperience.push({});
@@ -297,7 +290,6 @@ export default {
         resume.techStack.push({});
       }
     }
-
     function deletePictureItem(projectIndex, pictureIndex) {
       resume.projectExperience[projectIndex].pictureList.splice(
         pictureIndex,
@@ -307,7 +299,6 @@ export default {
         resume.projectExperience[projectIndex].pictureList.push("");
       }
     }
-
     return {
       resume,
       voidFunction,
@@ -315,10 +306,11 @@ export default {
       exportResume,
       importResume,
       addItem,
-      deleteItem,
       deletePictureItem,
       previewResume,
     };
+
+    console.log("edit");
   },
 };
 </script>
