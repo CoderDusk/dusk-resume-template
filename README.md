@@ -3,7 +3,7 @@
 一个基于 Vue 3 和 ElementPlus 的简历网页模板，方便展示项目链接、二维码和截图等信息。
 
 ## 截图
-![截图](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-6fec5402-1210-4b81-9949-97c1987784b9/378a4378-ed6b-4003-ab6c-f1bb81a3ad12.png)
+![截图](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-6fec5402-1210-4b81-9949-97c1987784b9/388ac652-1b67-4b90-93e5-f8c1d90c93b8.png)
 
 ### 安装
 
