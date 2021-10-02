@@ -1,0 +1,203 @@
+body {
+  background-color: rgb(240, 240, 246);
+  background-image: url("https://vkceyugu.cdn.bspapp.com/VKCEYUGU-6fec5402-1210-4b81-9949-97c1987784b9/7499570b-3f82-49d3-934f-f6c13b4f1cb3.svg"),
+    url("https://vkceyugu.cdn.bspapp.com/VKCEYUGU-6fec5402-1210-4b81-9949-97c1987784b9/b7bf8c6f-e689-4cd1-9c77-ef3b37b89abc.svg");
+  background-repeat: no-repeat, no-repeat;
+  background-position: top left, bottom right;
+}
+
+#app {
+  width: 85%;
+  margin: 0 auto;
+}
+@font-face {
+  font-family: "iconfont";
+  /* Project id 2733423 */
+  src: url("fonts/iconfont.woff2?t=1628554215418") format("woff2"),
+    url("fonts/iconfont.woff?t=1628554215418") format("woff"),
+    url("fonts/iconfont.ttf?t=1628554215418") format("truetype");
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-weixin:before {
+  content: "\e62a";
+}
+
+::selection {
+  background-color: rgba(0, 0, 0, 0);
+  color: #0045ff;
+}
+
+.container {
+  max-width: 85%;
+  margin: 0 auto;
+  color: #44566c;
+}
+
+.bio-head {
+  background-color: white;
+  border-radius: 20px 20px 0 0;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.bio-head .name {
+  font-size: 26px;
+}
+
+.bio-head .job {
+  background-color: #f0f0f6;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+.bio-foot {
+  background-color: #f8fafb;
+  border-radius: 0 0 20px 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  word-break: break-all;
+}
+
+.bio-foot i {
+  margin-right: 10px;
+}
+
+.bio-foot .download-link {
+  text-align: center;
+}
+
+.bio-foot .download-button {
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.main {
+  padding-top: 40px;
+}
+
+.main .title {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.main .main-content-pannel {
+  padding: 30px;
+}
+
+.main .main-content-pannel:nth-child(odd) {
+  background-color: white;
+}
+
+.main .main-content-pannel:nth-child(even) {
+  background-color: #f8fafb;
+}
+
+.main .main-content-pannel:first-child {
+  border-radius: 20px 20px 0 0;
+}
+
+.main .main-content-pannel:last-child {
+  border-radius: 0 0 20px 20px;
+  margin-bottom: 60px;
+}
+
+.divide-line {
+  width: 50px;
+  height: 4px;
+  background-color: #0045ff;
+  margin: 10px 0 20px 0;
+}
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card-list .card-item {
+  width: 300px;
+  margin: 20px;
+  color: #44566c;
+}
+
+.card-list .card-item .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.work-experience .work-experience-card {
+  margin: 30px 0;
+}
+
+.work-experience .work-experience-card .company-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #44566c;
+}
+
+.work-experience .work-experience-card .work-info {
+  color: gray;
+  margin: 5px 0;
+}
+
+.work-experience .work-experience-card .work-info .work-duration {
+  margin-left: 15px;
+}
+
+.work-experience .work-experience-card .description {
+  color: #44566c;
+  white-space: pre-wrap;
+}
+
+.education-experience .school-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #44566c;
+}
+
+.education-experience .school-info {
+  margin-top: 5px;
+  color: #44566c;
+}
+
+.education-experience .school-info span {
+  margin-right: 15px;
+}
+
+.education-experience .el-timeline {
+  padding-left: 0;
+}
+
+.project-experience .button-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.project-experience .button-list .button-item {
+  margin-bottom: 5px;
+  margin-left: 0;
+}
+
+.tech-stack .tag-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tech-stack .tag-list .tech-tag {
+  margin: 0 10px 10px 0;
+}

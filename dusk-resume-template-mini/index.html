@@ -1,0 +1,241 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!-- 通过 unpkg CDN引入依赖 -->
+    <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
+    <script src="//unpkg.com/vue@next"></script>
+    <script src="//unpkg.com/element-plus"></script>
+
+    <!-- 通过 jsDelivr CDN引入依赖 -->
+    <!-- <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/element-plus/dist/index.css"
+    />
+    <script src="//cdn.jsdelivr.net/npm/vue@next"></script>
+    <script src="//cdn.jsdelivr.net/npm/element-plus"></script> -->
+
+    <!-- 引入简历数据 -->
+    <script src="data.js"></script>
+    <!-- 引入项目自定义的样式文件 -->
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <el-row :gutter="40">
+        <el-col :xs="24" :md="8" :lg="6" class="left-col">
+          <div class="bio-head">
+            <div class="name">{{ resume.basicInfo.fullName }}</div>
+            <div class="job">{{ resume.basicInfo.job }}</div>
+          </div>
+          <div class="bio-foot">
+            <div class="container">
+              <div v-if="resume.basicInfo.email">
+                <i class="el-icon-message"></i>{{ resume.basicInfo.email }}
+              </div>
+              <div v-if="resume.basicInfo.mobile">
+                <i class="el-icon-mobile-phone"></i>{{ resume.basicInfo.mobile
+                }}
+              </div>
+              <div v-if="resume.basicInfo.wechat">
+                <i class="iconfont icon-weixin"></i>{{ resume.basicInfo.wechat
+                }}
+              </div>
+              <div v-if="resume.basicInfo.birthDate">
+                <i class="el-icon-date"></i>{{ resume.basicInfo.birthDate }}
+              </div>
+              <div v-if="resume.basicInfo.address">
+                <i class="el-icon-location-information"></i>{{
+                resume.basicInfo.address }}
+              </div>
+              <div v-if="resume.basicInfo.salary">
+                <i class="el-icon-money"></i>{{ resume.basicInfo.salary }}
+              </div>
+            </div>
+
+            <a
+              v-if="resume.resumeDownloadLink"
+              :href="resume.resumeDownloadLink"
+              class="download-link"
+              download
+              ><el-button
+                type="primary"
+                size="mini"
+                round
+                icon="el-icon-download"
+                class="download-button"
+                >下载简历</el-button
+              ></a
+            >
+          </div>
+        </el-col>
+        <el-col :xs="24" :md="16" :lg="16">
+          <div class="main">
+            <div class="work-experience main-content-pannel">
+              <div class="title">工作经历</div>
+              <div class="divide-line"></div>
+              <template
+                v-for="(work, index) in resume.workExperience"
+                :key="index"
+              >
+                <div class="work-experience-card">
+                  <el-card>
+                    <div class="company-name">{{ work.companyName }}</div>
+                    <div class="work-info">
+                      <span>{{ work.job }}</span>
+                      <span class="work-duration">{{ work.duration }}</span>
+                    </div>
+                    <div class="description">{{ work.content }}</div>
+                  </el-card>
+                </div>
+              </template>
+            </div>
+            <div class="education-experience main-content-pannel">
+              <div class="title">教育经历</div>
+              <div class="divide-line"></div>
+              <el-timeline>
+                <el-timeline-item
+                  v-for="(school, index) in resume.educationExperience"
+                  :key="index"
+                >
+                  <div class="school-name">{{ school.schoolName }}</div>
+                  <div class="school-info">
+                    <span>{{ school.degree }}</span>
+                    <span>{{ school.major }}</span>
+                    <span>{{ school.duration }}</span>
+                  </div>
+                </el-timeline-item>
+              </el-timeline>
+            </div>
+            <div class="project-experience main-content-pannel">
+              <div class="title">项目经历</div>
+              <div class="divide-line"></div>
+
+              <div class="card-list">
+                <template
+                  v-for="(project, index) in resume.projectExperience"
+                  :key="index"
+                >
+                  <el-card class="card-item">
+                    <template #header>
+                      <div class="card-header">
+                        <span>{{ project.name }}</span>
+                        <div class="button-list">
+                          <div v-if="project.link">
+                            <a :href="project.link" target="_blank"
+                              ><el-button
+                                size="mini"
+                                type="primary"
+                                class="button-item"
+                                >项目地址</el-button
+                              ></a
+                            >
+                          </div>
+                          <div v-if="project.QRCode">
+                            <el-popover
+                              placement="right"
+                              trigger="click"
+                              v-if="project.QRCode"
+                            >
+                              <template #reference>
+                                <el-button
+                                  type="primary"
+                                  size="mini"
+                                  class="button-item"
+                                  >查看小程序码</el-button
+                                >
+                              </template>
+                              <el-image
+                                :src="project.QRCode"
+                                fit="fit"
+                              ></el-image>
+                            </el-popover>
+                          </div>
+                          <div>
+                            <el-image-viewer
+                              v-if="isShowImageViewer"
+                              @close="isShowImageViewer = false"
+                              :url-list="project.pictureList"
+                            ></el-image-viewer>
+                            <el-button
+                              type="primary"
+                              size="mini"
+                              @click="isShowImageViewer = true"
+                              class="button-item"
+                              >查看截图</el-button
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </template>
+                    <div>{{ project.content }}</div>
+                  </el-card>
+                </template>
+              </div>
+            </div>
+            <div class="tech-stack main-content-pannel">
+              <div class="title">技术栈</div>
+              <div class="divide-line"></div>
+
+              <div class="card-list">
+                <template
+                  v-for="(item, index) in resume.techStack"
+                  :key="index"
+                >
+                  <el-card class="card-item">
+                    <template #header> {{ item.name }} </template>
+                    <div class="tag-list">
+                      <div
+                        class="tech-tag"
+                        v-for="(item, index) in item.list.split(',')"
+                        :key="index"
+                      >
+                        <el-tag>{{ item }}</el-tag>
+                      </div>
+                    </div>
+                  </el-card>
+                </template>
+              </div>
+            </div>
+            <div class="about-me main-content-pannel">
+              <div class="title">自我评价</div>
+              <div class="divide-line"></div>
+              <div>{{ resume.selfIntroduction }}</div>
+            </div>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
+
+    <script>
+      const { defineComponent, ref, reactive } = Vue;
+
+      let Main = {
+        setup() {
+          let resume = reactive(data);
+
+          document.title = resume.title;
+
+          let isShowImageViewer = ref(false);
+          let currentImgList = reactive([]);
+
+          function showImageViewer(imgList) {
+            currentImgList = imgList;
+            isShowImageViewer.value = true;
+          }
+
+          return {
+            resume,
+            isShowImageViewer,
+            showImageViewer,
+            currentImgList,
+          };
+        },
+      };
+
+      const app = Vue.createApp(Main);
+      app.use(ElementPlus);
+      app.mount("#app");
+    </script>
+  </body>
+</html>
