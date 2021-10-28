@@ -1,0 +1,1 @@
+<view class="content data-v-2a183b29"><el-button vue-id="18efaafd-1" type="primary" class="data-v-2a183b29" bind:__l="__l" vue-slots="{{['default']}}">Primary</el-button></view>

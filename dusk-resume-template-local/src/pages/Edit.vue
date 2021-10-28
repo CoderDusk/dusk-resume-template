@@ -250,7 +250,6 @@ export default {
     let data = JSON.parse(localStorage.getItem("resume"));
     let resume = reactive(data);
     document.title = resume.title;
-    function voidFunction() {}
     function saveResume() {
       localStorage.setItem("resume", JSON.stringify(resume));
       ElMessage.success("保存成功");
@@ -301,7 +300,6 @@ export default {
     }
     return {
       resume,
-      voidFunction,
       saveResume,
       exportResume,
       importResume,
@@ -309,8 +307,6 @@ export default {
       deletePictureItem,
       previewResume,
     };
-
-    console.log("edit");
   },
 };
 </script>
